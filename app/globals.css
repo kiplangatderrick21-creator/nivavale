@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark neutrals ("ink") */
+  --color-ink-950: #0a0d12;
+  --color-ink-900: #0e131a;
+  --color-ink-800: #151b24;
+  --color-ink-700: #1e2631;
+  --color-ink-600: #2c3645;
+  --color-ink-500: #4a5568;
+  --color-ink-400: #7a8494;
+  --color-ink-300: #a6aeb9;
+  --color-ink-200: #cdd2d9;
+  --color-ink-100: #e6e8ec;
+  --color-ink-50: #f4f5f6;
+
+  /* Light warm neutrals ("paper") */
+  --color-paper: #f6f5f1;
+  --color-paper-muted: #ecebe5;
+  --color-paper-line: #dedcd3;
+
+  /* Accent (muted brass) */
+  --color-accent: #b08d57;
+  --color-accent-soft: #c6a36a;
+  --color-accent-600: #93743f;
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Motion */
+  --animate-fade-up: fade-up 0.7s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-900);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-ink-950);
+  }
+
+  /* Visible, consistent focus state for keyboard navigation. */
+  :where(a, button, input, textarea, select, summary):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

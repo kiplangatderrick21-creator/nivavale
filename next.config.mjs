@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static export: generates a fully static site in /out that Cloudflare Pages
-  // can serve with no server runtime.
+  // Static export: generates a fully static site in /out for Cloudflare Pages.
   output: 'export',
   trailingSlash: true,
   images: {

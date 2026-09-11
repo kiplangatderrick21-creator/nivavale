@@ -93,6 +93,34 @@ Copy lives in `lib/content.ts`. Site-wide values (name, tagline, domain, email, 
 No statistics, returns, clients, testimonials, employees, or other claims are fabricated anywhere
 in the site.
 
+## Deploying to GitHub Pages
+
+This repository is published to GitHub Pages as a **user site**
+(`https://kiplangatderrick21-creator.github.io/`), so it is served from the domain root — no
+`basePath` is required.
+
+GitHub Pages cannot run a Next.js dev/build process. A repository with no root `index.html` is
+rendered by Jekyll as documentation instead, which is why the raw source showed the `README.md`
+rather than the site. The site is therefore built by GitHub Actions and the generated `out/` folder
+is what gets published:
+
+- `.github/workflows/deploy-pages.yml` — installs dependencies, runs `npm run build`, and publishes
+  `out/` with `actions/deploy-pages`.
+- `public/.nojekyll` — disables Jekyll processing. Without it, GitHub Pages strips every file and
+  folder whose name starts with `_`, which includes Next.js's `_next/` asset directory, leaving the
+  site without its CSS or JavaScript.
+
+**One-time repository setting:** Settings → Pages → **Build and deployment** → **Source: GitHub
+Actions**. While the source is set to “Deploy from a branch”, GitHub Pages keeps serving the
+repository source (the rendered `README.md`) instead of the built site.
+
+After that, every push to `main` rebuilds and redeploys automatically, and the workflow can also be
+run manually from the **Actions** tab (`workflow_dispatch`).
+
+To connect the contact form in CI, add a repository **variable** (Settings → Secrets and variables →
+Actions → **Variables** → New repository variable) named `NEXT_PUBLIC_CONTACT_ENDPOINT`; the workflow
+passes it to the build. When it is unset, the form shows its “not connected” notice.
+
 ## Deploying to Cloudflare Pages
 
 1. **Push to GitHub** — commit and push this repository.
